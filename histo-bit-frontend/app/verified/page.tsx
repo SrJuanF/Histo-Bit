@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import skeleton from "./skeleton.gif";
+//import skeleton from "./skeleton.gif";
 
 export default function HomePage() {
 	return (
@@ -10,13 +10,7 @@ export default function HomePage() {
 			</div>
 
 			<div className="text-center">
-				<Image
-					src={skeleton} // Place your GIF in the public folder
-					alt="Loading animation"
-					width={300}
-					height={300}
-					priority
-				/>
+				<div>OK!</div>
 			</div>
 		</div>
 	);
