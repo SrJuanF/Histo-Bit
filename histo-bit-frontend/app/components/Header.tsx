@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useTheme } from '../hooks/useTheme';
-import VerticalDarkModeLogo from '@/Logos/VerticalDarkMode.png';
 
 interface HeaderProps {
   showNavigation?: boolean;
@@ -61,9 +61,13 @@ export default function Header({ showNavigation = true, currentPage }: HeaderPro
     <>
       <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#214a3c] px-10 py-3">
         <div className="flex items-center gap-4 text-white">
-          <img src={VerticalDarkModeLogo.src ? VerticalDarkModeLogo.src : VerticalDarkModeLogo}
+          <Image 
+            src="/Logos/VerticalDarkMode.png"
             alt="Histo Bit Logo"
-            className="w-25 h-10"
+            width={100}
+            height={40}
+            className="w-40 h-10"
+            priority
           />
           {/*<h2 className="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Histo Bit</h2>*/}
         </div>

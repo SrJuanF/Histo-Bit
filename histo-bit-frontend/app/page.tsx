@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Header from "./components/Header";
 
 export default function Home() {
@@ -42,6 +43,19 @@ export default function Home() {
         {/* Hero Section */}
         <div className="flex flex-col items-center justify-center flex-1 px-4 py-12">
           <div className="text-center max-w-4xl mx-auto">
+            
+            {/* Banner Image */}
+            <div className="mb-8 flex justify-center">
+              <Image 
+                src="/Logos/Banner.jpg" 
+                alt="Histo Bit Banner" 
+                width={800}
+                height={400}
+                className="max-w-full h-auto max-h-96 rounded-lg shadow-lg"
+                priority
+              />
+            </div>
+            
             <h1 className="text-white text-5xl md:text-6xl font-bold leading-tight mb-6">
               Secure Medical Records
               <span className="text-[#019863] block">on Blockchain</span>
