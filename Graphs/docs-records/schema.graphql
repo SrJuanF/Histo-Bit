@@ -1,0 +1,57 @@
+#Doc
+type ActiveDocs @entity(immutable: false) {
+  id: ID!
+  documentId: BigInt! # uint256
+  owner: Bytes! # address
+  createdBy: Bytes! # address
+  updatedBy: Bytes! # address
+  ipfsCID: String! # string
+  documentType: String! # string
+  description: String! # string
+  createdAt: BigInt! # uint256
+  updatedAt: BigInt! # uint256
+  isActive: Boolean! # bool
+  sectorType: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+#Entity
+type ActiveEntities @entity(immutable: false) {
+  id: ID!
+  entity: Bytes! # address
+  entityType: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+#Acceses
+type ActiveAccessDoc @entity(immutable: true) {
+  id: ID!
+  docId: BigInt! # uint256
+  patient: Bytes! # address
+  entity: Bytes! # address
+  isActive: Boolean! # bool
+  accessType: Int! # uint8
+  grantedAt: BigInt! # uint256
+  expiresAt: BigInt! # uint256
+  purpose: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ActiveAccessEntity @entity(immutable: true) {
+  id: ID!
+  patient: Bytes! # address
+  entity: Bytes! # address
+  isActive: Boolean! # bool
+  accessType: Int! # uint8
+  grantedAt: BigInt! # uint256
+  expiresAt: BigInt! # uint256
+  purpose: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+

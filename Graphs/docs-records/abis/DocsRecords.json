@@ -1,0 +1,615 @@
+[
+  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "sender", "type": "address" }
+    ],
+    "name": "InvalidAddress",
+    "type": "error"
+  },
+  { "inputs": [], "name": "InvalidDocumentInputs", "type": "error" },
+  { "inputs": [], "name": "NotAccessOtherPatient_None", "type": "error" },
+  { "inputs": [], "name": "NotAllowEntityAccess", "type": "error" },
+  { "inputs": [], "name": "NotPermissionGranted", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "entity", "type": "address" }
+    ],
+    "name": "OnlyPatient",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "owner", "type": "address" }
+    ],
+    "name": "OwnableInvalidOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "OwnableUnauthorizedAccount",
+    "type": "error"
+  },
+  { "inputs": [], "name": "ReentrancyGuardReentrantCall", "type": "error" },
+  { "inputs": [], "name": "UnauthorizedUser", "type": "error" },
+  { "inputs": [], "name": "accessTypeIncorrect", "type": "error" },
+  { "inputs": [], "name": "entityTypeIncorrect", "type": "error" },
+  { "inputs": [], "name": "expiresAtNotValid", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "docId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "patient",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "entity",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum AccessControl.AccessType",
+        "name": "accessType",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "grantedAt",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "expiresAt",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "purpose",
+        "type": "string"
+      }
+    ],
+    "name": "AccessGrantedDoc",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "patient",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "entity",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum AccessControl.AccessType",
+        "name": "accessType",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "grantedAt",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "expiresAt",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "purpose",
+        "type": "string"
+      }
+    ],
+    "name": "AccessGrantedEntity",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "docId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "patient",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "entity",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "revokedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "AccessRevokedDoc",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "patient",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "entity",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "revokedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "AccessRevokedEntity",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "documentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "createdBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "ipfsCID",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "documentType",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isActive",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum AccessControl.EntityType",
+        "name": "sectorType",
+        "type": "uint8"
+      }
+    ],
+    "name": "DocumentAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "documentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "deactivatedBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deactivatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DocumentDeactivated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "documentId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "updatedBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "ipfsCID",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "documentType",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isActive",
+        "type": "bool"
+      }
+    ],
+    "name": "DocumentUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "entity",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum AccessControl.EntityType",
+        "name": "entityType",
+        "type": "uint8"
+      }
+    ],
+    "name": "EntityRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_entity", "type": "address" },
+      { "internalType": "bytes32", "name": "_documentHash", "type": "bytes32" },
+      { "internalType": "string", "name": "_ipfsHash", "type": "string" },
+      { "internalType": "string", "name": "_documentType", "type": "string" },
+      { "internalType": "string", "name": "_description", "type": "string" },
+      { "internalType": "bool", "name": "_isActive", "type": "bool" },
+      {
+        "internalType": "enum AccessControl.EntityType",
+        "name": "_sectorType",
+        "type": "uint8"
+      }
+    ],
+    "name": "accessCreateDocument",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_docId", "type": "uint256" },
+      { "internalType": "bytes32", "name": "_documentHash", "type": "bytes32" },
+      { "internalType": "string", "name": "_ipfsHash", "type": "string" },
+      { "internalType": "string", "name": "_documentType", "type": "string" },
+      { "internalType": "string", "name": "_description", "type": "string" },
+      { "internalType": "bool", "name": "_isActive", "type": "bool" }
+    ],
+    "name": "accessUpdateDocument",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_entity", "type": "address" },
+      { "internalType": "uint256", "name": "_docId", "type": "uint256" }
+    ],
+    "name": "deactivateDocument",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_docId", "type": "uint256" }
+    ],
+    "name": "getDocument",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "id", "type": "uint256" },
+          {
+            "internalType": "address payable",
+            "name": "owner",
+            "type": "address"
+          },
+          { "internalType": "address", "name": "createdBy", "type": "address" },
+          { "internalType": "address", "name": "updatedBy", "type": "address" },
+          {
+            "internalType": "bytes32",
+            "name": "documentHash",
+            "type": "bytes32"
+          },
+          { "internalType": "string", "name": "ipfsCID", "type": "string" },
+          {
+            "internalType": "string",
+            "name": "documentType",
+            "type": "string"
+          },
+          { "internalType": "string", "name": "description", "type": "string" },
+          { "internalType": "uint256", "name": "createdAt", "type": "uint256" },
+          { "internalType": "uint256", "name": "updatedAt", "type": "uint256" },
+          { "internalType": "bool", "name": "isActive", "type": "bool" },
+          {
+            "internalType": "enum AccessControl.EntityType",
+            "name": "sectorType",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct DocsRecords.Document",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_entity", "type": "address" }
+    ],
+    "name": "getEntityType",
+    "outputs": [
+      {
+        "internalType": "enum AccessControl.EntityType",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_docId", "type": "uint256" },
+      { "internalType": "address", "name": "_entity", "type": "address" }
+    ],
+    "name": "getPermissionDoc",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "bool", "name": "isActive", "type": "bool" },
+          {
+            "internalType": "enum AccessControl.AccessType",
+            "name": "accessType",
+            "type": "uint8"
+          },
+          { "internalType": "uint256", "name": "grantedAt", "type": "uint256" },
+          { "internalType": "uint256", "name": "expiresAt", "type": "uint256" },
+          { "internalType": "string", "name": "purpose", "type": "string" }
+        ],
+        "internalType": "struct AccessControl.Permission",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_entity", "type": "address" }
+    ],
+    "name": "getPermissionEntity",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "bool", "name": "isActive", "type": "bool" },
+          {
+            "internalType": "enum AccessControl.AccessType",
+            "name": "accessType",
+            "type": "uint8"
+          },
+          { "internalType": "uint256", "name": "grantedAt", "type": "uint256" },
+          { "internalType": "uint256", "name": "expiresAt", "type": "uint256" },
+          { "internalType": "string", "name": "purpose", "type": "string" }
+        ],
+        "internalType": "struct AccessControl.Permission",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_docId", "type": "uint256" },
+      { "internalType": "address", "name": "_entity", "type": "address" },
+      {
+        "internalType": "enum AccessControl.AccessType",
+        "name": "_accessType",
+        "type": "uint8"
+      },
+      { "internalType": "uint256", "name": "_expiresAt", "type": "uint256" },
+      { "internalType": "string", "name": "_purpose", "type": "string" }
+    ],
+    "name": "grantAccessDoc",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_entity", "type": "address" },
+      {
+        "internalType": "enum AccessControl.AccessType",
+        "name": "_accessType",
+        "type": "uint8"
+      },
+      { "internalType": "uint256", "name": "_expiresAt", "type": "uint256" },
+      { "internalType": "string", "name": "_purpose", "type": "string" }
+    ],
+    "name": "grantAccessEntity",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum AccessControl.EntityType",
+        "name": "_entityType",
+        "type": "uint8"
+      }
+    ],
+    "name": "registerEntity",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_docId", "type": "uint256" },
+      { "internalType": "address", "name": "_entity", "type": "address" }
+    ],
+    "name": "revokeAccessDoc",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_entity", "type": "address" }
+    ],
+    "name": "revokeAccessEntity",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "s_patientDocuments",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

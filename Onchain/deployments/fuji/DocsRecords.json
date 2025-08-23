@@ -1,0 +1,1338 @@
+{
+  "address": "0x5eDc321228e8064a678d16df4338d77cc38Dc6e5",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "InvalidAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidDocumentInputs",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAccessOtherPatient_None",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAllowEntityAccess",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotPermissionGranted",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "entity",
+          "type": "address"
+        }
+      ],
+      "name": "OnlyPatient",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ReentrancyGuardReentrantCall",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "UnauthorizedUser",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "accessTypeIncorrect",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "entityTypeIncorrect",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "expiresAtNotValid",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "docId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "patient",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "entity",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum AccessControl.AccessType",
+          "name": "accessType",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "grantedAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "expiresAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "purpose",
+          "type": "string"
+        }
+      ],
+      "name": "AccessGrantedDoc",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "patient",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "entity",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum AccessControl.AccessType",
+          "name": "accessType",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "grantedAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "expiresAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "purpose",
+          "type": "string"
+        }
+      ],
+      "name": "AccessGrantedEntity",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "docId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "patient",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "entity",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "revokedAt",
+          "type": "uint256"
+        }
+      ],
+      "name": "AccessRevokedDoc",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "patient",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "entity",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "revokedAt",
+          "type": "uint256"
+        }
+      ],
+      "name": "AccessRevokedEntity",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "documentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "createdBy",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "ipfsCID",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "documentType",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "createdAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isActive",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum AccessControl.EntityType",
+          "name": "sectorType",
+          "type": "uint8"
+        }
+      ],
+      "name": "DocumentAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "documentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "deactivatedBy",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "deactivatedAt",
+          "type": "uint256"
+        }
+      ],
+      "name": "DocumentDeactivated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "documentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "updatedBy",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "ipfsCID",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "documentType",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "updatedAt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isActive",
+          "type": "bool"
+        }
+      ],
+      "name": "DocumentUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "entity",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum AccessControl.EntityType",
+          "name": "entityType",
+          "type": "uint8"
+        }
+      ],
+      "name": "EntityRegistered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_documentHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "_ipfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_documentType",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isActive",
+          "type": "bool"
+        },
+        {
+          "internalType": "enum AccessControl.EntityType",
+          "name": "_sectorType",
+          "type": "uint8"
+        }
+      ],
+      "name": "accessCreateDocument",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_docId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_documentHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "_ipfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_documentType",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isActive",
+          "type": "bool"
+        }
+      ],
+      "name": "accessUpdateDocument",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_docId",
+          "type": "uint256"
+        }
+      ],
+      "name": "deactivateDocument",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_docId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getDocument",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address payable",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "createdBy",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "updatedBy",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "documentHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "string",
+              "name": "ipfsCID",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "documentType",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "createdAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "updatedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            },
+            {
+              "internalType": "enum AccessControl.EntityType",
+              "name": "sectorType",
+              "type": "uint8"
+            }
+          ],
+          "internalType": "struct DocsRecords.Document",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        }
+      ],
+      "name": "getEntityType",
+      "outputs": [
+        {
+          "internalType": "enum AccessControl.EntityType",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_docId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        }
+      ],
+      "name": "getPermissionDoc",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            },
+            {
+              "internalType": "enum AccessControl.AccessType",
+              "name": "accessType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "grantedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "expiresAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "purpose",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct AccessControl.Permission",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        }
+      ],
+      "name": "getPermissionEntity",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "isActive",
+              "type": "bool"
+            },
+            {
+              "internalType": "enum AccessControl.AccessType",
+              "name": "accessType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "grantedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "expiresAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "purpose",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct AccessControl.Permission",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_docId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        },
+        {
+          "internalType": "enum AccessControl.AccessType",
+          "name": "_accessType",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_expiresAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_purpose",
+          "type": "string"
+        }
+      ],
+      "name": "grantAccessDoc",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        },
+        {
+          "internalType": "enum AccessControl.AccessType",
+          "name": "_accessType",
+          "type": "uint8"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_expiresAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_purpose",
+          "type": "string"
+        }
+      ],
+      "name": "grantAccessEntity",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "enum AccessControl.EntityType",
+          "name": "_entityType",
+          "type": "uint8"
+        }
+      ],
+      "name": "registerEntity",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_docId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        }
+      ],
+      "name": "revokeAccessDoc",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_entity",
+          "type": "address"
+        }
+      ],
+      "name": "revokeAccessEntity",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "s_patientDocuments",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xf3b7550d50d8a5b61da342253e2c363becb0e581b2718d53057cee1fc2e6f624",
+  "receipt": {
+    "to": null,
+    "from": "0x70DD1FDf265766E7aE67AcD2011D263Ce654E42b",
+    "contractAddress": "0x5eDc321228e8064a678d16df4338d77cc38Dc6e5",
+    "transactionIndex": 0,
+    "gasUsed": "2224288",
+    "logsBloom": "0x00000000000000000000000004000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000100000000001000001000000000000001000000000000000000000000000000000000020000000004000000000800000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x3ea7df573221c545dd708398f8ad32896d33014613ea771f68436f21211837e8",
+    "transactionHash": "0xf3b7550d50d8a5b61da342253e2c363becb0e581b2718d53057cee1fc2e6f624",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 45029686,
+        "transactionHash": "0xf3b7550d50d8a5b61da342253e2c363becb0e581b2718d53057cee1fc2e6f624",
+        "address": "0x5eDc321228e8064a678d16df4338d77cc38Dc6e5",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x00000000000000000000000070dd1fdf265766e7ae67acd2011d263ce654e42b"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x3ea7df573221c545dd708398f8ad32896d33014613ea771f68436f21211837e8"
+      }
+    ],
+    "blockNumber": 45029686,
+    "cumulativeGasUsed": "2224288",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "b7165bbd590e9c32eb3d5f4999c3dd8f",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.24+commit.e11b9ed9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"InvalidAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidDocumentInputs\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotAccessOtherPatient_None\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotAllowEntityAccess\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotPermissionGranted\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"entity\",\"type\":\"address\"}],\"name\":\"OnlyPatient\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReentrancyGuardReentrantCall\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"UnauthorizedUser\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"accessTypeIncorrect\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"entityTypeIncorrect\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"expiresAtNotValid\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"docId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"entity\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enum AccessControl.AccessType\",\"name\":\"accessType\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"grantedAt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"expiresAt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"purpose\",\"type\":\"string\"}],\"name\":\"AccessGrantedDoc\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"entity\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enum AccessControl.AccessType\",\"name\":\"accessType\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"grantedAt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"expiresAt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"purpose\",\"type\":\"string\"}],\"name\":\"AccessGrantedEntity\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"docId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"entity\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"revokedAt\",\"type\":\"uint256\"}],\"name\":\"AccessRevokedDoc\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"patient\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"entity\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"revokedAt\",\"type\":\"uint256\"}],\"name\":\"AccessRevokedEntity\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"documentId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"createdBy\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"ipfsCID\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"documentType\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"enum AccessControl.EntityType\",\"name\":\"sectorType\",\"type\":\"uint8\"}],\"name\":\"DocumentAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"documentId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"deactivatedBy\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"deactivatedAt\",\"type\":\"uint256\"}],\"name\":\"DocumentDeactivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"documentId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"updatedBy\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"ipfsCID\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"documentType\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"updatedAt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"}],\"name\":\"DocumentUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"entity\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"enum AccessControl.EntityType\",\"name\":\"entityType\",\"type\":\"uint8\"}],\"name\":\"EntityRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"_documentHash\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"_ipfsHash\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_documentType\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_description\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"_isActive\",\"type\":\"bool\"},{\"internalType\":\"enum AccessControl.EntityType\",\"name\":\"_sectorType\",\"type\":\"uint8\"}],\"name\":\"accessCreateDocument\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_docId\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"_documentHash\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"_ipfsHash\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_documentType\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_description\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"_isActive\",\"type\":\"bool\"}],\"name\":\"accessUpdateDocument\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_docId\",\"type\":\"uint256\"}],\"name\":\"deactivateDocument\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_docId\",\"type\":\"uint256\"}],\"name\":\"getDocument\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"address payable\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"createdBy\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"updatedBy\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"documentHash\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"ipfsCID\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"documentType\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"updatedAt\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"},{\"internalType\":\"enum AccessControl.EntityType\",\"name\":\"sectorType\",\"type\":\"uint8\"}],\"internalType\":\"struct DocsRecords.Document\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"}],\"name\":\"getEntityType\",\"outputs\":[{\"internalType\":\"enum AccessControl.EntityType\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_docId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"}],\"name\":\"getPermissionDoc\",\"outputs\":[{\"components\":[{\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"},{\"internalType\":\"enum AccessControl.AccessType\",\"name\":\"accessType\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"grantedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expiresAt\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"purpose\",\"type\":\"string\"}],\"internalType\":\"struct AccessControl.Permission\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"}],\"name\":\"getPermissionEntity\",\"outputs\":[{\"components\":[{\"internalType\":\"bool\",\"name\":\"isActive\",\"type\":\"bool\"},{\"internalType\":\"enum AccessControl.AccessType\",\"name\":\"accessType\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"grantedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expiresAt\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"purpose\",\"type\":\"string\"}],\"internalType\":\"struct AccessControl.Permission\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_docId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"},{\"internalType\":\"enum AccessControl.AccessType\",\"name\":\"_accessType\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"_expiresAt\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_purpose\",\"type\":\"string\"}],\"name\":\"grantAccessDoc\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"},{\"internalType\":\"enum AccessControl.AccessType\",\"name\":\"_accessType\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"_expiresAt\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_purpose\",\"type\":\"string\"}],\"name\":\"grantAccessEntity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"enum AccessControl.EntityType\",\"name\":\"_entityType\",\"type\":\"uint8\"}],\"name\":\"registerEntity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_docId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"}],\"name\":\"revokeAccessDoc\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_entity\",\"type\":\"address\"}],\"name\":\"revokeAccessEntity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"s_patientDocuments\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Contract for managing private documents metadata and ownership Integrates with AccessControl for permission management\",\"errors\":{\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}],\"ReentrancyGuardReentrantCall()\":[{\"details\":\"Unauthorized reentrant call.\"}]},\"kind\":\"dev\",\"methods\":{\"getEntityType(address)\":{\"details\":\"Get entity type for an address\",\"params\":{\"_entity\":\"Address to check\"},\"returns\":{\"_0\":\"EntityType of the address\"}},\"getPermissionDoc(uint256,address)\":{\"details\":\"Get permission details for a specific document-entity pair\",\"params\":{\"_entity\":\"Address to check\"},\"returns\":{\"_0\":\"Permission struct with all details\"}},\"getPermissionEntity(address)\":{\"details\":\"Get permission details for a specific patient-entity pair\",\"params\":{\"_entity\":\"Address to check\"},\"returns\":{\"_0\":\"Permission struct with all details\"}},\"grantAccessDoc(uint256,address,uint8,uint256,string)\":{\"details\":\"Grant access to an entity for the patient's document record\",\"params\":{\"_accessType\":\"Type of access to grant\",\"_entity\":\"Address of the entity to grant access to\",\"_expiresAt\":\"Timestamp when access expires (0 for no expiration)\",\"_purpose\":\"Purpose of the access\"}},\"grantAccessEntity(address,uint8,uint256,string)\":{\"details\":\"Grant access to an entity for the patient's records\",\"params\":{\"_accessType\":\"Type of access to grant\",\"_entity\":\"Address of the entity to grant access to\",\"_expiresAt\":\"Timestamp when access expires (0 for no expiration)\",\"_purpose\":\"Purpose of the access\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"registerEntity(uint8)\":{\"details\":\"Register an entity with its type\",\"params\":{\"_entityType\":\"Type of entity (AUDITOR, HEALTH, INSURANCE)\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"revokeAccessDoc(uint256,address)\":{\"details\":\"Revoke access from an document\",\"params\":{\"_entity\":\"Address of the entity to revoke access from\"}},\"revokeAccessEntity(address)\":{\"details\":\"Revoke access from an entity\",\"params\":{\"_entity\":\"Address of the entity to revoke access from\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"title\":\"DocsRecords\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"accessCreateDocument(address,bytes32,string,string,string,bool,uint8)\":{\"notice\":\"Access Function to filter valid entities and inputs for creating a document\"},\"accessUpdateDocument(uint256,bytes32,string,string,string,bool)\":{\"notice\":\"Access Function to filter valid entities and inputs for updating a document\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/DocsRecords.sol\":\"DocsRecords\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    constructor(address initialOwner) {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/ReentrancyGuard.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.1.0) (utils/ReentrancyGuard.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Contract module that helps prevent reentrant calls to a function.\\n *\\n * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier\\n * available, which can be applied to functions to make sure there are no nested\\n * (reentrant) calls to them.\\n *\\n * Note that because there is a single `nonReentrant` guard, functions marked as\\n * `nonReentrant` may not call one another. This can be worked around by making\\n * those functions `private`, and then adding `external` `nonReentrant` entry\\n * points to them.\\n *\\n * TIP: If EIP-1153 (transient storage) is available on the chain you're deploying at,\\n * consider using {ReentrancyGuardTransient} instead.\\n *\\n * TIP: If you would like to learn more about reentrancy and alternative ways\\n * to protect against it, check out our blog post\\n * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].\\n */\\nabstract contract ReentrancyGuard {\\n    // Booleans are more expensive than uint256 or any type that takes up a full\\n    // word because each write operation emits an extra SLOAD to first read the\\n    // slot's contents, replace the bits taken up by the boolean, and then write\\n    // back. This is the compiler's defense against contract upgrades and\\n    // pointer aliasing, and it cannot be disabled.\\n\\n    // The values being non-zero value makes deployment a bit more expensive,\\n    // but in exchange the refund on every call to nonReentrant will be lower in\\n    // amount. Since refunds are capped to a percentage of the total\\n    // transaction's gas, it is best to keep them low in cases like this one, to\\n    // increase the likelihood of the full refund coming into effect.\\n    uint256 private constant NOT_ENTERED = 1;\\n    uint256 private constant ENTERED = 2;\\n\\n    uint256 private _status;\\n\\n    /**\\n     * @dev Unauthorized reentrant call.\\n     */\\n    error ReentrancyGuardReentrantCall();\\n\\n    constructor() {\\n        _status = NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Prevents a contract from calling itself, directly or indirectly.\\n     * Calling a `nonReentrant` function from another `nonReentrant`\\n     * function is not supported. It is possible to prevent this from happening\\n     * by making the `nonReentrant` function external, and making it call a\\n     * `private` function that does the actual work.\\n     */\\n    modifier nonReentrant() {\\n        _nonReentrantBefore();\\n        _;\\n        _nonReentrantAfter();\\n    }\\n\\n    function _nonReentrantBefore() private {\\n        // On the first call to nonReentrant, _status will be NOT_ENTERED\\n        if (_status == ENTERED) {\\n            revert ReentrancyGuardReentrantCall();\\n        }\\n\\n        // Any calls to nonReentrant after this point will fail\\n        _status = ENTERED;\\n    }\\n\\n    function _nonReentrantAfter() private {\\n        // By storing the original value once again, a refund is triggered (see\\n        // https://eips.ethereum.org/EIPS/eip-2200)\\n        _status = NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Returns true if the reentrancy guard is currently set to \\\"entered\\\", which indicates there is a\\n     * `nonReentrant` function in the call stack.\\n     */\\n    function _reentrancyGuardEntered() internal view returns (bool) {\\n        return _status == ENTERED;\\n    }\\n}\\n\",\"keccak256\":\"0x11a5a79827df29e915a12740caf62fe21ebe27c08c9ae3e09abe9ee3ba3866d3\",\"license\":\"MIT\"},\"contracts/AccessControl.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity ^0.8.20;\\r\\n\\r\\n\\r\\nimport \\\"@openzeppelin/contracts/utils/ReentrancyGuard.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title AccessControl\\r\\n * @dev Contract for managing access permissions to medical records\\r\\n * Allows patients to grant/revoke access to insurance services and medical professionals\\r\\n */\\r\\ncontract AccessControl is ReentrancyGuard {\\r\\n    // Custom errors\\r\\n    error OnlyPatient(address entity);\\r\\n    error InvalidAddress(address sender);\\r\\n    error NotAccessOtherPatient_None();\\r\\n    error entityTypeIncorrect();\\r\\n    error accessTypeIncorrect();\\r\\n    error expiresAtNotValid();\\r\\n    error NotPermissionGranted();\\r\\n    error NotAllowEntityAccess();\\r\\n\\r\\n    // Enums for different types of access\\r\\n    enum AccessType {\\r\\n        NONE,\\r\\n        READ,\\r\\n        WRITE\\r\\n    }\\r\\n    enum EntityType {\\r\\n        NONE,\\r\\n        PATIENT,\\r\\n        AUDITOR,\\r\\n        HEALTH,\\r\\n        INSURANCE,\\r\\n        GOVERNMENT,\\r\\n        FINANCIAL,\\r\\n        EDUCATIONAL,\\r\\n        LABOR,\\r\\n        LEGAL,\\r\\n        TECHNOLOGICAL\\r\\n    }\\r\\n\\r\\n    // Struct to store access permission details\\r\\n    struct Permission {\\r\\n        bool isActive;\\r\\n        AccessType accessType;\\r\\n        uint256 grantedAt;\\r\\n        uint256 expiresAt;\\r\\n        string purpose; // Purpose of access (e.g., \\\"Insurance claim review\\\")\\r\\n    }\\r\\n\\r\\n    // Mappings\\r\\n    mapping(address => EntityType) internal entityTypes;\\r\\n    mapping(uint256 => mapping(address => Permission)) internal permissions; // docId => entity => permission\\r\\n    mapping(address => mapping(address => Permission)) internal patientPermissions; // patient => entity => permission\\r\\n\\r\\n    // Events\\r\\n    event AccessGrantedDoc(\\r\\n        uint256 indexed docId,\\r\\n        address indexed patient,\\r\\n        address indexed entity,\\r\\n        AccessType accessType,\\r\\n        uint256 grantedAt,\\r\\n        uint256 expiresAt,\\r\\n        string purpose\\r\\n    );\\r\\n    event AccessRevokedDoc(\\r\\n        uint256 indexed docId,\\r\\n        address indexed patient,\\r\\n        address indexed entity,\\r\\n        uint256 revokedAt\\r\\n    );\\r\\n    event AccessGrantedEntity(\\r\\n        address indexed patient,\\r\\n        address indexed entity,\\r\\n        AccessType accessType,\\r\\n        uint256 grantedAt,\\r\\n        uint256 expiresAt,\\r\\n        string purpose\\r\\n    );\\r\\n    event AccessRevokedEntity(\\r\\n        address indexed patient,\\r\\n        address indexed entity,\\r\\n        uint256 revokedAt\\r\\n    );\\r\\n    event EntityRegistered(address indexed entity, EntityType entityType);\\r\\n\\r\\n    // Modifiers\\r\\n    modifier onlyPatient() {\\r\\n        if (entityTypes[msg.sender] != EntityType.PATIENT) {\\r\\n            revert OnlyPatient(msg.sender);\\r\\n        }\\r\\n        _;\\r\\n    }\\r\\n    modifier onlyAllowed(address _entity){\\r\\n        EntityType sender = entityTypes[msg.sender];\\r\\n        EntityType userEntity = entityTypes[_entity];\\r\\n\\r\\n        if((sender != EntityType.PATIENT && userEntity != EntityType.PATIENT) ||\\r\\n        sender == EntityType.NONE || userEntity == EntityType.NONE ||\\r\\n        uint8(sender) > uint8(type(EntityType).max) || uint8(userEntity) > uint8(type(EntityType).max)) {\\r\\n            revert NotAllowEntityAccess();\\r\\n        }\\r\\n        _;\\r\\n    }\\r\\n    modifier validAddressAccess(address _addr) {\\r\\n        if (_addr == address(0)) {\\r\\n            revert InvalidAddress(msg.sender);\\r\\n        }\\r\\n        if (entityTypes[_addr] == EntityType.PATIENT || entityTypes[_addr] == EntityType.NONE  ||\\r\\n            uint8(entityTypes[_addr]) > uint8(type(EntityType).max)) {\\r\\n            revert NotAccessOtherPatient_None();\\r\\n        }\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Register an entity with its type\\r\\n     * @param _entityType Type of entity (AUDITOR, HEALTH, INSURANCE)\\r\\n     */\\r\\n    function registerEntity(EntityType _entityType) external { //Payable?\\r\\n        if(uint8(_entityType) > uint8(type(EntityType).max)){\\r\\n            revert entityTypeIncorrect();\\r\\n        }\\r\\n\\r\\n        //Payable\\r\\n\\r\\n        entityTypes[msg.sender] = _entityType;\\r\\n        emit EntityRegistered(msg.sender, _entityType);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Grant access to an entity for the patient's records\\r\\n     * @param _entity Address of the entity to grant access to\\r\\n     * @param _accessType Type of access to grant\\r\\n     * @param _expiresAt Timestamp when access expires (0 for no expiration)\\r\\n     * @param _purpose Purpose of the access\\r\\n     */\\r\\n    function grantAccessEntity(\\r\\n        address _entity, \\r\\n        AccessType _accessType, \\r\\n        uint256 _expiresAt, \\r\\n        string calldata _purpose\\r\\n    ) external onlyPatient validAddressAccess(_entity) {\\r\\n\\r\\n        if(uint8(_accessType) > uint8(type(AccessType).max)){\\r\\n            revert accessTypeIncorrect();\\r\\n        }\\r\\n        if(_expiresAt <= 60){\\r\\n            revert expiresAtNotValid();\\r\\n        }\\r\\n        //Prices\\r\\n\\r\\n        uint256 sExpiresAt = block.timestamp + _expiresAt;\\r\\n        patientPermissions[msg.sender][_entity] = Permission({\\r\\n            isActive: true,\\r\\n            accessType: _accessType,\\r\\n            grantedAt: block.timestamp,\\r\\n            expiresAt: sExpiresAt,\\r\\n            purpose: _purpose\\r\\n        });\\r\\n\\r\\n        emit AccessGrantedEntity(\\r\\n            msg.sender,\\r\\n            _entity,\\r\\n            _accessType,\\r\\n            block.timestamp,\\r\\n            sExpiresAt,\\r\\n            _purpose\\r\\n        );\\r\\n    }\\r\\n    /**\\r\\n     * @dev Revoke access from an entity\\r\\n     * @param _entity Address of the entity to revoke access from\\r\\n     */\\r\\n    function revokeAccessEntity(address _entity) external onlyPatient validAddressAccess(_entity) {\\r\\n\\r\\n        Permission memory ppermission = patientPermissions[msg.sender][_entity];\\r\\n\\r\\n        if (!ppermission.isActive) {\\r\\n            revert NotPermissionGranted();\\r\\n        }\\r\\n\\r\\n        ppermission.isActive = false;\\r\\n        ppermission.accessType = AccessType.NONE;\\r\\n        ppermission.grantedAt = 0;\\r\\n        ppermission.expiresAt = 0;\\r\\n        ppermission.purpose = \\\"\\\";\\r\\n\\r\\n        emit AccessRevokedEntity(msg.sender, _entity, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Grant access to an entity for the patient's document record\\r\\n     * @param _entity Address of the entity to grant access to\\r\\n     * @param _accessType Type of access to grant\\r\\n     * @param _expiresAt Timestamp when access expires (0 for no expiration)\\r\\n     * @param _purpose Purpose of the access\\r\\n     */\\r\\n    function grantAccessDoc(\\r\\n        uint256 _docId,\\r\\n        address _entity, \\r\\n        AccessType _accessType, \\r\\n        uint256 _expiresAt, \\r\\n        string calldata _purpose\\r\\n    ) external onlyPatient validAddressAccess(_entity) {\\r\\n\\r\\n        if(uint8(_accessType) > uint8(type(AccessType).max)){\\r\\n            revert accessTypeIncorrect();\\r\\n        }\\r\\n        if(_expiresAt <= 60){\\r\\n            revert expiresAtNotValid();\\r\\n        }\\r\\n\\r\\n        //Prices\\r\\n\\r\\n        uint256 sExpiresAt = block.timestamp + _expiresAt;\\r\\n        permissions[_docId][_entity] = Permission({\\r\\n            isActive: true,\\r\\n            accessType: _accessType,\\r\\n            grantedAt: block.timestamp,\\r\\n            expiresAt: sExpiresAt,\\r\\n            purpose: _purpose\\r\\n        });\\r\\n\\r\\n        emit AccessGrantedDoc(\\r\\n            _docId,\\r\\n            msg.sender,\\r\\n            _entity,\\r\\n            _accessType,\\r\\n            block.timestamp,\\r\\n            sExpiresAt,\\r\\n            _purpose\\r\\n        );\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Revoke access from an document\\r\\n     * @param _entity Address of the entity to revoke access from\\r\\n     */\\r\\n    function revokeAccessDoc(uint256 _docId, address _entity) external onlyPatient validAddressAccess(_entity) {\\r\\n\\r\\n        Permission memory ppermission = permissions[_docId][_entity];\\r\\n\\r\\n        if (!ppermission.isActive) {\\r\\n            revert NotPermissionGranted();\\r\\n        }\\r\\n\\r\\n        ppermission.isActive = false;\\r\\n        ppermission.accessType = AccessType.NONE;\\r\\n        ppermission.grantedAt = 0;\\r\\n        ppermission.expiresAt = 0;\\r\\n        ppermission.purpose = \\\"\\\";\\r\\n\\r\\n        emit AccessRevokedDoc(_docId, msg.sender, _entity, block.timestamp);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get permission details for a specific patient-entity pair\\r\\n     * @param _entity Address to check\\r\\n     * @return Permission struct with all details\\r\\n     */\\r\\n    function getPermissionEntity(address _entity) external view onlyPatient returns (Permission memory) {\\r\\n        return patientPermissions[msg.sender][_entity];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get permission details for a specific document-entity pair\\r\\n     * @param _entity Address to check\\r\\n     * @return Permission struct with all details\\r\\n     */\\r\\n    function getPermissionDoc(uint256 _docId, address _entity) external view onlyPatient returns (Permission memory) {\\r\\n        return permissions[_docId][_entity];\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Get entity type for an address\\r\\n     * @param _entity Address to check\\r\\n     * @return EntityType of the address\\r\\n     */\\r\\n    function getEntityType(address _entity) external view returns (EntityType) {\\r\\n        return entityTypes[_entity];\\r\\n    }\\r\\n}\",\"keccak256\":\"0xdf6d635d400e5a01a97118553cb0e65d5fede7d15d100dbefdc8e20ae7256913\",\"license\":\"MIT\"},\"contracts/DocsRecords.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity ^0.8.20;\\r\\n\\r\\nimport \\\"./AccessControl.sol\\\";\\r\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title DocsRecords\\r\\n * @dev Contract for managing private documents metadata and ownership\\r\\n * Integrates with AccessControl for permission management\\r\\n */\\r\\ncontract DocsRecords is AccessControl, Ownable {\\r\\n    //errors\\r\\n    error InvalidDocumentInputs();\\r\\n    error UnauthorizedUser();\\r\\n\\r\\n    //structs\\r\\n    struct Document {\\r\\n        uint256 id;\\r\\n        address payable owner;\\r\\n        address createdBy;\\r\\n        address updatedBy; //\\r\\n        bytes32 documentHash; //\\r\\n        string ipfsCID; //\\r\\n        string documentType; //\\r\\n        string description; //\\r\\n        uint256 createdAt;\\r\\n        uint256 updatedAt; //\\r\\n        bool isActive; //\\r\\n        EntityType sectorType;\\r\\n    }\\r\\n\\r\\n    // State variables\\r\\n    uint256 private s_nextDocId;\\r\\n\\r\\n    // Mappings\\r\\n    mapping(uint256 => Document) private s_documents;\\r\\n    mapping(address => uint256[]) public s_patientDocuments; // patient => document IDs\\r\\n\\r\\n    // Events\\r\\n    event DocumentAdded(\\r\\n        uint256 indexed documentId,\\r\\n        address indexed owner,\\r\\n        address indexed createdBy,\\r\\n        string ipfsCID,\\r\\n        string documentType,\\r\\n        string description,\\r\\n        uint256 createdAt,\\r\\n        bool isActive,\\r\\n        EntityType sectorType\\r\\n    );\\r\\n    event DocumentUpdated(\\r\\n        uint256 indexed documentId,\\r\\n        address indexed updatedBy,\\r\\n        string ipfsCID,\\r\\n        string documentType,\\r\\n        string description,\\r\\n        uint256 updatedAt,\\r\\n        bool isActive\\r\\n    );\\r\\n    event DocumentDeactivated(\\r\\n        uint256 indexed documentId,\\r\\n        address indexed deactivatedBy,\\r\\n        uint256 deactivatedAt\\r\\n    );\\r\\n\\r\\n    modifier verifyInputs(\\r\\n        bytes32 _documentHash,\\r\\n        string calldata _ipfsHash,\\r\\n        string calldata _documentType,\\r\\n        string calldata _description\\r\\n    ) {\\r\\n        if (\\r\\n            _documentHash == bytes32(0) ||\\r\\n            bytes(_ipfsHash).length == 0 ||\\r\\n            bytes(_documentType).length == 0 ||\\r\\n            bytes(_description).length == 0\\r\\n        ) {\\r\\n            revert InvalidDocumentInputs();\\r\\n        }\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    constructor() Ownable(msg.sender) {\\r\\n        // Initialize the contract\\r\\n        s_nextDocId = 1;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @notice Access Function to filter valid entities and inputs for creating a document\\r\\n     */\\r\\n    function accessCreateDocument(\\r\\n        address _entity,\\r\\n        bytes32 _documentHash,\\r\\n        string calldata _ipfsHash,\\r\\n        string calldata _documentType,\\r\\n        string calldata _description,\\r\\n        bool _isActive,\\r\\n        EntityType _sectorType\\r\\n    )\\r\\n        external\\r\\n        onlyAllowed(_entity)\\r\\n        verifyInputs(_documentHash, _ipfsHash, _documentType, _description)\\r\\n        returns (uint256)\\r\\n    {\\r\\n        if (uint8(_sectorType) > uint8(type(EntityType).max)) {\\r\\n            revert InvalidDocumentInputs();\\r\\n        }\\r\\n\\r\\n        address holder = entityTypes[msg.sender] == EntityType.PATIENT ? msg.sender : _entity;\\r\\n        address creator = entityTypes[msg.sender] != EntityType.PATIENT ? msg.sender : _entity;\\r\\n\\r\\n        Permission memory allowance = patientPermissions[holder][creator];\\r\\n\\r\\n        if (\\r\\n            allowance.isActive == false ||\\r\\n            allowance.accessType != AccessType.WRITE ||\\r\\n            allowance.expiresAt < block.timestamp\\r\\n        ) {\\r\\n            revert NotPermissionGranted();\\r\\n        }\\r\\n\\r\\n        return\\r\\n            addDocumentHolder(\\r\\n                holder,\\r\\n                creator,\\r\\n                _documentHash,\\r\\n                _ipfsHash,\\r\\n                _documentType,\\r\\n                _description,\\r\\n                _isActive,\\r\\n                _sectorType\\r\\n            );\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Add a new document by the User\\r\\n     * @param _holder Address of the document owner\\r\\n     * @param _creator Address of the entity creating the document\\r\\n     * @param _documentHash Hash of the document\\r\\n     * @param _ipfsHash IPFS hash of the encrypted document\\r\\n     * @param _documentType Type of the document\\r\\n     * @param _description Description of the document\\r\\n     * @param _isActive Whether the document is active\\r\\n     * @param _sectorType Sector type of the document\\r\\n     * @return documentId The ID of the created document\\r\\n     */\\r\\n    function addDocumentHolder(\\r\\n        address _holder,\\r\\n        address _creator,\\r\\n        bytes32 _documentHash,\\r\\n        string calldata _ipfsHash,\\r\\n        string calldata _documentType,\\r\\n        string calldata _description,\\r\\n        bool _isActive,\\r\\n        EntityType _sectorType\\r\\n    ) private returns (uint256) {\\r\\n        uint256 docId = s_nextDocId++;\\r\\n        uint256 createdAt = block.timestamp;\\r\\n\\r\\n        // Create and populate document\\r\\n        s_documents[docId] = Document({\\r\\n            id: docId,\\r\\n            owner: payable(_holder),\\r\\n            createdBy: _creator,\\r\\n            updatedBy: address(0),\\r\\n            documentHash: _documentHash,\\r\\n            ipfsCID: _ipfsHash,\\r\\n            documentType: _documentType,\\r\\n            description: _description,\\r\\n            createdAt: createdAt,\\r\\n            updatedAt: 0,\\r\\n            isActive: _isActive,\\r\\n            sectorType: _sectorType\\r\\n        });\\r\\n        s_patientDocuments[msg.sender].push(docId);\\r\\n\\r\\n        emit DocumentAdded(\\r\\n            docId,\\r\\n            _holder,\\r\\n            _creator,\\r\\n            _ipfsHash,\\r\\n            _documentType,\\r\\n            _description,\\r\\n            createdAt,\\r\\n            _isActive,\\r\\n            _sectorType\\r\\n        );\\r\\n\\r\\n        return docId;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @notice Access Function to filter valid entities and inputs for updating a document\\r\\n     */\\r\\n    function accessUpdateDocument(\\r\\n        uint256 _docId,\\r\\n        bytes32 _documentHash,\\r\\n        string calldata _ipfsHash,\\r\\n        string calldata _documentType,\\r\\n        string calldata _description,\\r\\n        bool _isActive\\r\\n    ) external verifyInputs(_documentHash, _ipfsHash, _documentType, _description) {\\r\\n        EntityType sender = entityTypes[msg.sender];\\r\\n\\r\\n        if (sender == EntityType.NONE || uint8(sender) > uint8(type(EntityType).max)) {\\r\\n            revert NotAllowEntityAccess();\\r\\n        }\\r\\n\\r\\n        Document memory doc = s_documents[_docId];\\r\\n\\r\\n        if (sender == EntityType.PATIENT) {\\r\\n            if (address(doc.owner) != msg.sender) {\\r\\n                revert UnauthorizedUser();\\r\\n            }\\r\\n        } else {\\r\\n            Permission memory allowance = permissions[_docId][msg.sender];\\r\\n\\r\\n            if (\\r\\n                allowance.isActive == false ||\\r\\n                allowance.accessType != AccessType.WRITE ||\\r\\n                allowance.expiresAt < block.timestamp\\r\\n            ) {\\r\\n                revert NotPermissionGranted();\\r\\n            }\\r\\n        }\\r\\n\\r\\n        updateDocumentHolder(\\r\\n            _docId,\\r\\n            _documentHash,\\r\\n            _ipfsHash,\\r\\n            _documentType,\\r\\n            _description,\\r\\n            _isActive\\r\\n        );\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @dev Update an existing document by the User\\r\\n     * @param _docId ID of the document to update\\r\\n     * @param _documentHash New hash of the document\\r\\n     * @param _ipfsHash New IPFS hash of the encrypted document\\r\\n     * @param _documentType New type of the document\\r\\n     * @param _description New description of the document\\r\\n     * @param _isActive Whether the document is active\\r\\n     */\\r\\n    function updateDocumentHolder(\\r\\n        uint256 _docId,\\r\\n        bytes32 _documentHash,\\r\\n        string calldata _ipfsHash,\\r\\n        string calldata _documentType,\\r\\n        string calldata _description,\\r\\n        bool _isActive\\r\\n    ) private {\\r\\n        Document storage doc = s_documents[_docId];\\r\\n\\r\\n        uint256 updatedAt = block.timestamp;\\r\\n\\r\\n        doc.updatedBy = msg.sender;\\r\\n        doc.documentHash = _documentHash;\\r\\n        doc.ipfsCID = _ipfsHash;\\r\\n        doc.documentType = _documentType;\\r\\n        doc.description = _description;\\r\\n        doc.updatedAt = updatedAt;\\r\\n        doc.isActive = _isActive;\\r\\n\\r\\n        emit DocumentUpdated(\\r\\n            _docId,\\r\\n            msg.sender,\\r\\n            _ipfsHash,\\r\\n            _documentType,\\r\\n            _description,\\r\\n            updatedAt,\\r\\n            _isActive\\r\\n        );\\r\\n    }\\r\\n\\r\\n    //Function to deactivate a document\\r\\n    function deactivateDocument(address _entity, uint256 _docId) external onlyAllowed(_entity){\\r\\n\\r\\n        address holder = entityTypes[msg.sender] == EntityType.PATIENT ? msg.sender : _entity;\\r\\n        address creator = entityTypes[msg.sender] != EntityType.PATIENT ? msg.sender : _entity;\\r\\n\\r\\n        Permission memory allowance = patientPermissions[holder][creator];\\r\\n\\r\\n        if (\\r\\n            allowance.isActive == false ||\\r\\n            allowance.accessType != AccessType.WRITE ||\\r\\n            allowance.expiresAt < block.timestamp\\r\\n        ) {\\r\\n            revert NotPermissionGranted();\\r\\n        }\\r\\n\\r\\n        Document storage doc = s_documents[_docId];\\r\\n\\r\\n        if(address(doc.owner) != holder) {\\r\\n            revert UnauthorizedUser();\\r\\n        }\\r\\n\\r\\n        doc.isActive = false;\\r\\n        emit DocumentDeactivated(_docId, creator, block.timestamp);\\r\\n    }\\r\\n\\r\\n    function getDocument(uint256 _docId) external view returns (Document memory) {\\r\\n        EntityType sender = entityTypes[msg.sender];\\r\\n\\r\\n        if (sender == EntityType.NONE || uint8(sender) > uint8(type(EntityType).max)) {\\r\\n            revert NotAllowEntityAccess();\\r\\n        }\\r\\n\\r\\n        Document memory doc = s_documents[_docId];\\r\\n\\r\\n        if (sender == EntityType.PATIENT) {\\r\\n            if (address(doc.owner) != msg.sender) {\\r\\n                revert UnauthorizedUser();\\r\\n            }\\r\\n        } else {\\r\\n            Permission memory allowance = permissions[_docId][msg.sender];\\r\\n\\r\\n            if (\\r\\n                allowance.isActive == false ||\\r\\n                allowance.accessType != AccessType.READ ||\\r\\n                allowance.expiresAt < block.timestamp\\r\\n            ) {\\r\\n                revert NotPermissionGranted();\\r\\n            }\\r\\n        }\\r\\n        return s_documents[_docId];\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0x2836bb1ba5fb5e53bf91d11af59db365dfb1be3e4875267037908db032d7689f\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60808060405234610084576001600055331561006e5760048054336001600160a01b03198216811790925560405191906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0600080a36001600555612602908161008a8239f35b631e4fbdf760e01b815260006004820152602490fd5b600080fdfe6080604052600436101561001257600080fd5b60003560e01c80631197593e1461217f5780631b858b83146119fe57806330212f70146114065780633f9b250a14611026578063402bfbec14610fe25780634c51889014610cc357806355186c94146109a7578063715018a61461094a578063736071b7146108c25780638da5cb5b14610899578063a02adc9f1461071d578063bb92cef81461047e578063bdfb6f4714610401578063bec380291461024d578063d094bdb71461015a5763f2fde38b146100cc57600080fd5b34610155576020366003190112610155576100e56121d7565b6100ed6125a0565b6001600160a01b0390811690811561013c57600454826001600160601b0360a01b821617600455167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0600080a3005b604051631e4fbdf760e01b815260006004820152602490fd5b600080fd5b34610155576020366003190112610155576101736121d7565b61017b612572565b5033600052600160205260ff60406000205416600b8110156102375760010361021f5733600052600360205260406000209060018060a01b031660005260205261021b604060002061020a6003604051926101d58461235a565b6101f060ff82548181161515875260081c1660208601612314565b6001810154604085015260028101546060850152016123cd565b6080820152604051918291826122c7565b0390f35b6040516362e34a2360e01b8152336004820152602490fd5b634e487b7160e01b600052602160045260246000fd5b3461015557602080600319360112610155576102676121d7565b903360005260019182825260ff908160406000205416600b81101561023757840361021f576001600160a01b03169283156103e957836000528083528160406000205416600b81101561023757811480156103ca575b80156103a9575b61039757336000526003835260406000208460005283526040600020604051916102ed8361235a565b610308825494808616151585528685019560081c1685612314565b810154926040830193845261032b600360028401549360608601948552016123cd565b9360808401948552835115610385576000809492818094525252526040519061035382612391565b60008252527fa1927490ced17896eb82b64301a502b26f0d7c77ae05e93cf9cc968dbcda035a604051914283523392a3005b604051636b6d2e1160e11b8152600490fd5b6040516341532d6360e11b8152600490fd5b50836000528083528160406000205416600b81101561023757600a106102c4565b50836000528083528160406000205416600b81101561023757156102bd565b604051634726455360e11b8152336004820152602490fd5b346101555760403660031901126101555761041a6121ed565b610422612572565b5033600052600160205260ff60406000205416600b8110156102375760010361021f57600435600052600260205260406000209060018060a01b031660005260205261021b604060002061020a6003604051926101d58461235a565b34610155576040366003190112610155576104976121d7565b60248035903360005260019060209082825260ff9485604060002054169560018060a01b0391828116600052816040600020541697600b988982101591826106e857888114159283610709575b83156106fd575b83156106d6575b83156106ae575b5050811561069b575b50610689573360005285855281604060002054168881101561066d5786036106825733975b3360005286865282604060002054169081101561066d578391908714610667575033975b169283600052600385528260406000209816978860005285526040600020906040516105768161235a565b610591835494808616151583528883019560081c1685612314565b8783015460408201526105b2600360028501549460608401958652016123cd565b60808201525115928315610639575b5050811561062e575b50610385578460005260068352604060002093840154160361061c57600a7f81a051476fc04b2389b1eabf380e14b470ffc5afda78914ab6dcc0098572bc13920160ff198154169055604051428152a3005b6040516302a43f8b60e01b8152600490fd5b9050514211876105ca565b5191925060038210156106535750600214159088806105c1565b634e487b7160e01b60009081526021600452fd5b9761054b565b84634e487b7160e01b60005260216004526000fd5b8097610527565b60405163db57f38160e01b8152600490fd5b90508881101561066d57600a1089610502565b909192506106c157600a10908a806104f9565b85634e487b7160e01b60005260216004526000fd5b92508a8210156106e8578115926104f2565b86634e487b7160e01b60005260216004526000fd5b508015925060006104eb565b92508a8210156106e85788821415926104e4565b34610155576040366003190112610155576004356107396121ed565b3360005260019160209183835260ff908160406000205416600b81101561023757850361021f576001600160a01b03169384156103e957846000528084528160406000205416600b811015610237578114801561087a575b8015610859575b61039757826000526002845260406000208560005284526040600020604051916107c18361235a565b6107dc825494808616151585528785019560081c1685612314565b81015492604083019384526107ff600360028401549360608601948552016123cd565b9360808401948552835115610385576000809492818094525252526040519061082782612391565b60008252527f301ac9502001a31c885b47a8ce84ba7ea74083a3b95675563c660dcebc7d5f5f604051924284523393a4005b50846000528084528160406000205416600b81101561023757600a10610798565b50846000528084528160406000205416600b8110156102375715610791565b34610155576000366003190112610155576004546040516001600160a01b039091168152602090f35b3461015557602036600319011261015557600435600b8110156101555760ff8116600a81116109385733600052600160205260406000209060ff1982541617905561091060405180926122ad565b7fdc983e356096ea4440682aebfc76b2938cbf9cae52431ff53c2b1144a53de7e560203392a2005b604051631230530160e31b8152600490fd5b34610155576000366003190112610155576109636125a0565b600480546001600160a01b031981169091556000906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a3005b346101555760a0366003190112610155576004356109c36121ed565b9060443590600382101561015557606435926001600160401b0390608435828111610155576109f6903690600401612231565b90923360005260019060209382855260ff60406000205416600b81101561023757830361021f576001600160a01b03169788156103e9578860005282855260ff60406000205416600b8110156102375783148015610ca3575b8015610c81575b61039757600260ff891611610c6f57603c811115610c5d57610a78904261247e565b9360405192610a868461235a565b80845281840193610a978a86612314565b604081019042825260608101888152610ab136898c61248b565b96608083019788528b600052600286528d6040600020906000528652610aeb604060002093511515849060ff801983541691151516179055565b519260038410156102375760039361ff0084549160081b169061ff0019161783555184830155516002820155019351908151938411610c4757610b3884610b328754612320565b876124d1565b82601f8511600114610bb5575050827f54fd8cf009ebe28d90ffba5f4fe8909afba0d1d3bf3cced9ed67a74a908e92c897969593610ba59593610b9293600092610baa575b50508160011b916000199060031b1c19161790565b90555b6040519384933398429086612548565b0390a4005b015190508c80610b7d565b91601f949391941984168660005283600020936000905b828210610c30575050917f54fd8cf009ebe28d90ffba5f4fe8909afba0d1d3bf3cced9ed67a74a908e92c899989795939185610ba598969410610c17575b505050811b019055610b95565b015160001960f88460031b161c191690558b8080610c0a565b808886978294978701518155019601940190610bcc565b634e487b7160e01b600052604160045260246000fd5b604051630647f4b360e41b8152600490fd5b604051639d7efecf60e01b8152600490fd5b508860005282855260ff60406000205416600b81101561023757600a10610a56565b508860005282855260ff60406000205416600b8110156102375715610a4f565b3461015557608036600319011261015557610cdc6121d7565b602490813590600382101561015557604435926001600160401b039160643583811161015557610d10903690600401612231565b9190933360005260019160209083825260ff60406000205416600b8110156106e8578403610fcb576001600160a01b0316978815610fb4578860005283825260ff60406000205416600b8110156106e85784148015610f94575b8015610f72575b61039757600260ff891611610c6f57603c811115610c5d57610d93904261247e565b9460405193610da18561235a565b80855282850194610db28a87612314565b604081014281526060820190898252610dcc368a8d61248b565b976080840198895233600052600387528d6040600020906000528752610e06604060002094511515859060ff801983541691151516179055565b5160038110156106c1579083929161ff00600395549160081b169061ff0019161783555184830155516002820155019451918251948511610f5e5750610e5084610b328754612320565b82601f8511600114610ecc575050827f2b5d45cf9d9e315dfb33028012f3ff541480a79a0564f871871fe13e4872980d97969593610ebc9593610ea993600092610ec15750508160011b916000199060031b1c19161790565b90555b6040519384933397429086612548565b0390a3005b015190508b80610b7d565b91601f949391941984168660005283600020936000905b828210610f47575050917f2b5d45cf9d9e315dfb33028012f3ff541480a79a0564f871871fe13e4872980d99989795939185610ebc98969410610f2e575b505050811b019055610eac565b015160001960f88460031b161c191690558a8080610f21565b808886978294978701518155019601940190610ee3565b634e487b7160e01b60009081526041600452fd5b508860005283825260ff60406000205416600b8110156106e857600a10610d71565b508860005283825260ff60406000205416600b8110156106e85715610d6a565b604051634726455360e11b81523360048201528690fd5b6040516362e34a2360e01b81523360048201528690fd5b34610155576020366003190112610155576001600160a01b036110036121d7565b166000526001602052602060ff6040600020541661102460405180926122ad565bf35b3461015557602036600319011261015557600061016060405161104881612375565b828152826020820152826040820152826060820152826080820152606060a0820152606060c0820152606060e0820152826101008201528261012082015282610140820152015233600052600160205260ff60406000205416600b811015908161023757801580156113f8575b6106895760043560005260066020526040600020916111836040516110d981612375565b8454815260018501546001600160a01b03908116602083019081526002870154821660408401526003870154909116606083015260048601546080830152946101609060ff90600a9061112e600582016123cd565b60a086015261113f600682016123cd565b60c0860152611150600782016123cd565b60e0860152600881015461010086015260098101546101208601520154818116151561014085015260081c169101612472565b6102375760010361133b5751336001600160a01b039091160361061c575b6004356000526006602052604060002061126360ff600a604051936111c585612375565b8054855260018101546001600160a01b03908116602087015260028201548116604087015260038201541660608601526004810154608086015261120b600582016123cd565b60a086015261121c600682016123cd565b60c086015261122d600782016123cd565b60e0860152600881015461010086015260098101546101208601520154818116151561014085015260081c166101608301612472565b6040518091602082528051602083015260018060a01b03602082015116604083015260018060a01b03604082015116606083015260018060a01b036060820151166080830152608081015160a083015261021b60a082015161016061130b6112d9610180938460c08901526101a088019061226d565b6112f560c087015191601f1992838a83030160e08b015261226d565b9060e0870151908883030161010089015261226d565b936101008101516101208701526101208101516101408701526101408101511515828701520151908401906122ad565b5060043560005260026020526040600020336000526020526040600020604051906113658261235a565b80549160ff83161515815261138460ff602083019460081c1684612314565b600182015460408201526113a6600360028401549360608401948552016123cd565b608082015251159182156113e0575b5081156113d5575b50156111a157604051636b6d2e1160e11b8152600490fd5b9050514211816113bd565b909150516003811015610237576001141590826113b5565b5060009150600a81116110b5565b346101555760c0366003190112610155576044356001600160401b03811161015557611436903690600401612231565b906064356001600160401b03811161015557611456903690600401612231565b906084356001600160401b03811161015557611476903690600401612231565b91909261148161225e565b946024351580156119f6575b80156119ee575b80156119e6575b6119d45733600052600160205260ff60406000205416600b811015908161023757801580156119c6575b61068957600435600052600660205260406000209161158c60ff600a604051956114ee87612375565b8054875260018101546001600160a01b039081166020890152600282015481166040890152600382015416606088015260048101546080880152611534600582016123cd565b60a0880152611545600682016123cd565b60c0880152611556600782016123cd565b60e0880152600881015461010088015260098101546101208801520154818116151561014087015260081c166101608501612472565b610237576001036119095760200151336001600160a01b039091160361061c575b6004356000526006602052604060002060038101336001600160601b0360a01b82541617905560243560048201556001600160401b038811610c4757611603886115fa6005840154612320565b600584016124d1565b600088601f811160011461189c578061163292600091611891575b508160011b916000199060031b1c19161790565b60058201555b6001600160401b038311610c4757611660836116576006840154612320565b600684016124d1565b600083601f8111600114611824578061168e9260009161181957508160011b916000199060031b1c19161790565b60068201555b6001600160401b038511610c4757806116be866116b560078b950154612320565b600784016124d1565b6000601f8711600114611793579261171f61173f9593600a611731946117018b8061174d9e9d9c9a60009161178857508160011b916000199060031b1c19161790565b60078201555b426009820155019060ff801983541691151516179055565b6040519960a08b5260a08b0191612527565b9188830360208a0152612527565b918583036040870152612527565b90426060840152151560808301527fd04f8297cb3c6060a4a042544aa43a2f1cf6541770bde0bf671432ef192de87a339280600435930390a3005b90508d01353861161e565b6007820160005260206000209060005b601f19891681106117fe575061173f9593600a611731948a99979461171f9461174d9d9c601f198116106117e4575b505060018a811b016007820155611707565b8c013560001960038d901b60f8161c191690558e806117d2565b8982013583558a9450600190920191602091820191016117a3565b90508601358b61161e565b50601f19841690600683016000528460206000209260005b81811061187657501061185c575b5050600183811b016006820155611694565b850135600019600386901b60f8161c19169055888061184a565b8884013585556001909401936020938401938893500161183c565b90508401358b61161e565b506005820160005260206000209060005b601f198b1681106118f1575089601f198116106118d7575b5050600188811b016005820155611638565b83013560001960038b901b60f8161c1916905588806118c5565b909160206001819285880135815501930191016118ad565b5060043560005260026020526040600020336000526020526040600020604051906119338261235a565b80549160ff83161515815261195260ff602083019460081c1684612314565b60018201546040820152611974600360028401549360608401948552016123cd565b608082015251159182156119ae575b5081156119a3575b50156115ad57604051636b6d2e1160e11b8152600490fd5b90505142118861198b565b90915051600381101561023757600214159089611983565b5060009150600a81116114c5565b6040516306bea62160e51b8152600490fd5b50831561149b565b508115611494565b50861561148d565b346101555760e036600319011261015557611a176121d7565b6044356001600160401b03811161015557611a36903690600401612231565b916064356001600160401b03811161015557611a56903690600401612231565b93906084356001600160401b03811161015557611a77903690600401612231565b959094611a8261225e565b93600b60c43510156101555733600052600160205260ff6040600020541660018060a01b03871660005260ff60406000205416600b82101591826102375760018114159283612169575b831561215d575b831561214a575b8315612137575b50508115612123575b506106895760243515801561211b575b8015612113575b801561210b575b6119d457600a60ff60c43516116119d45733600052600160205260ff60406000205416600b811015610237576001036121055733955b33600052600160205260ff60406000205416600b811015610237576001146121005750335b6001600160a01b0387811660009081526003602090815260408083209385168352929052819020905190611b968261235a565b80549160ff831615158152611bb560ff602083019460081c1684612314565b60018201546040820152611bd7600360028401549360608401948552016123cd565b608082015251159182156120e8575b5081156120dd575b50610385576005549760001989146120c75760018901600555604051611c1381612375565b8981526001600160a01b03898116602083015283166040820152600060608201526024356080820152611c4736858761248b565b60a0820152611c5736878961248b565b60c0820152611c67368c8461248b565b60e0820152426101008201526000610120820152871515610140820152611c9460c4356101608301612472565b896000526006602052604060002090805182556001820160018060a01b03602083015116906001600160601b0360a01b91828254161790556002830160018060a01b0360408401511682825416179055600383019060018060a01b03606084015116908254161790556080810151600483015560a08101518051906001600160401b038211610c4757611d3782611d2e6005870154612320565b600587016124d1565b602090601f831160011461205557611d67929160009183611fd85750508160011b916000199060031b1c19161790565b60058301555b60c08101518051906001600160401b038211610c4757611d9d82611d946006870154612320565b600687016124d1565b602090601f8311600114611fe357611dcd929160009183611fd85750508160011b916000199060031b1c19161790565b60068301555b60e08101518051906001600160401b038211610c4757611e0382611dfa6007870154612320565b600787016124d1565b602090601f8311600114611f64579180611e38926101609594600092611f595750508160011b916000199060031b1c19161790565b60078401555b61010081015160088401556101208101516009840155611e746101408201511515600a85019060ff801983541691151516179055565b0151600b81101561023757600a9061ff00828401549160081b169061ff0019161791015533600052600760205260406000209081549a680100000000000000008c1015610c475761173f8b987f689eb1cda6deaf3f32cafbffcc7c26358599606354ab581773ca7eccf336c8d198611ef760209f611f2397600182018155612203565b81549060031b908d821b91600019901b1916179055611731604051998a9960c08b5260c08b0191612527565b9542606084015215156080830152611f4060a0830160c4356122ad565b6001600160a01b039081169616940390a4604051908152f35b015190503880610b7d565b906007850160005260206000209160005b601f1985168110611fc057509183916001936101609695601f19811610611fa7575b505050811b016007840155611e3e565b015160001960f88460031b161c191690558f8080611f97565b91926020600181928685015181550194019201611f75565b015190508f80610b7d565b9190600685016000526020600020906000935b601f198416851061203a576001945083601f19811610612021575b505050811b016006830155611dd3565b015160001960f88460031b161c191690558e8080612011565b81810151835560209485019460019093019290910190611ff6565b9190600585016000526020600020906000935b601f19841685106120ac576001945083601f19811610612093575b505050811b016005830155611d6d565b015160001960f88460031b161c191690558e8080612083565b81810151835560209485019460019093019290910190612068565b634e487b7160e01b600052601160045260246000fd5b90505142118a611bee565b9091505160038110156102375760021415908b611be6565b611b63565b85611b3e565b508715611b08565b508215611b01565b508015611afa565b9050600b81101561023757600a1089611aea565b9091925061023757600a10908a80611ae1565b9250600b82101561023757811592611ada565b50801592506000611ad3565b9250600b82101561023757600182141592611acc565b34610155576040366003190112610155576121986121d7565b6001600160a01b0316600090815260076020526040902080546024359190821015610155576020916121c991612203565b90546040519160031b1c8152f35b600435906001600160a01b038216820361015557565b602435906001600160a01b038216820361015557565b805482101561221b5760005260206000200190600090565b634e487b7160e01b600052603260045260246000fd5b9181601f84011215610155578235916001600160401b038311610155576020838186019501011161015557565b60a43590811515820361015557565b919082519283825260005b848110612299575050826000602080949584010152601f8019910116010190565b602081830181015184830182015201612278565b90600b8210156102375752565b9060038210156102375752565b60c0608061231193602084528051151560208501526122ee602082015160408601906122ba565b6040810151606085015260608101518285015201519160a080820152019061226d565b90565b60038210156102375752565b90600182811c92168015612350575b602083101461233a57565b634e487b7160e01b600052602260045260246000fd5b91607f169161232f565b60a081019081106001600160401b03821117610c4757604052565b61018081019081106001600160401b03821117610c4757604052565b602081019081106001600160401b03821117610c4757604052565b90601f801991011681019081106001600160401b03821117610c4757604052565b906040519182600082546123e081612320565b908184526020946001916001811690816000146124505750600114612411575b50505061240f925003836123ac565b565b600090815285812095935091905b81831061243857505061240f9350820101388080612400565b8554888401850152948501948794509183019161241f565b9250505061240f94925060ff191682840152151560051b820101388080612400565b600b8210156102375752565b919082018092116120c757565b9291926001600160401b038211610c4757604051916124b4601f8201601f1916602001846123ac565b829481845281830111610155578281602093846000960137010152565b90601f81116124df57505050565b6000916000526020600020906020601f850160051c8301941061251d575b601f0160051c01915b82811061251257505050565b818155600101612506565b90925082906124fd565b908060209392818452848401376000828201840152601f01601f1916010190565b909260809261255b8361231198966122ba565b602083015260408201528160608201520191612527565b6040519061257f8261235a565b60606080836000815260006020820152600060408201526000838201520152565b6004546001600160a01b031633036125b457565b60405163118cdaa760e01b8152336004820152602490fdfea26469706673582212200c7fe9405695fd062c9ad5bd27cf868ed93e06d3acdb5081c96bf366b1d5443d64736f6c63430008180033",
+  "deployedBytecode": "0x6080604052600436101561001257600080fd5b60003560e01c80631197593e1461217f5780631b858b83146119fe57806330212f70146114065780633f9b250a14611026578063402bfbec14610fe25780634c51889014610cc357806355186c94146109a7578063715018a61461094a578063736071b7146108c25780638da5cb5b14610899578063a02adc9f1461071d578063bb92cef81461047e578063bdfb6f4714610401578063bec380291461024d578063d094bdb71461015a5763f2fde38b146100cc57600080fd5b34610155576020366003190112610155576100e56121d7565b6100ed6125a0565b6001600160a01b0390811690811561013c57600454826001600160601b0360a01b821617600455167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0600080a3005b604051631e4fbdf760e01b815260006004820152602490fd5b600080fd5b34610155576020366003190112610155576101736121d7565b61017b612572565b5033600052600160205260ff60406000205416600b8110156102375760010361021f5733600052600360205260406000209060018060a01b031660005260205261021b604060002061020a6003604051926101d58461235a565b6101f060ff82548181161515875260081c1660208601612314565b6001810154604085015260028101546060850152016123cd565b6080820152604051918291826122c7565b0390f35b6040516362e34a2360e01b8152336004820152602490fd5b634e487b7160e01b600052602160045260246000fd5b3461015557602080600319360112610155576102676121d7565b903360005260019182825260ff908160406000205416600b81101561023757840361021f576001600160a01b03169283156103e957836000528083528160406000205416600b81101561023757811480156103ca575b80156103a9575b61039757336000526003835260406000208460005283526040600020604051916102ed8361235a565b610308825494808616151585528685019560081c1685612314565b810154926040830193845261032b600360028401549360608601948552016123cd565b9360808401948552835115610385576000809492818094525252526040519061035382612391565b60008252527fa1927490ced17896eb82b64301a502b26f0d7c77ae05e93cf9cc968dbcda035a604051914283523392a3005b604051636b6d2e1160e11b8152600490fd5b6040516341532d6360e11b8152600490fd5b50836000528083528160406000205416600b81101561023757600a106102c4565b50836000528083528160406000205416600b81101561023757156102bd565b604051634726455360e11b8152336004820152602490fd5b346101555760403660031901126101555761041a6121ed565b610422612572565b5033600052600160205260ff60406000205416600b8110156102375760010361021f57600435600052600260205260406000209060018060a01b031660005260205261021b604060002061020a6003604051926101d58461235a565b34610155576040366003190112610155576104976121d7565b60248035903360005260019060209082825260ff9485604060002054169560018060a01b0391828116600052816040600020541697600b988982101591826106e857888114159283610709575b83156106fd575b83156106d6575b83156106ae575b5050811561069b575b50610689573360005285855281604060002054168881101561066d5786036106825733975b3360005286865282604060002054169081101561066d578391908714610667575033975b169283600052600385528260406000209816978860005285526040600020906040516105768161235a565b610591835494808616151583528883019560081c1685612314565b8783015460408201526105b2600360028501549460608401958652016123cd565b60808201525115928315610639575b5050811561062e575b50610385578460005260068352604060002093840154160361061c57600a7f81a051476fc04b2389b1eabf380e14b470ffc5afda78914ab6dcc0098572bc13920160ff198154169055604051428152a3005b6040516302a43f8b60e01b8152600490fd5b9050514211876105ca565b5191925060038210156106535750600214159088806105c1565b634e487b7160e01b60009081526021600452fd5b9761054b565b84634e487b7160e01b60005260216004526000fd5b8097610527565b60405163db57f38160e01b8152600490fd5b90508881101561066d57600a1089610502565b909192506106c157600a10908a806104f9565b85634e487b7160e01b60005260216004526000fd5b92508a8210156106e8578115926104f2565b86634e487b7160e01b60005260216004526000fd5b508015925060006104eb565b92508a8210156106e85788821415926104e4565b34610155576040366003190112610155576004356107396121ed565b3360005260019160209183835260ff908160406000205416600b81101561023757850361021f576001600160a01b03169384156103e957846000528084528160406000205416600b811015610237578114801561087a575b8015610859575b61039757826000526002845260406000208560005284526040600020604051916107c18361235a565b6107dc825494808616151585528785019560081c1685612314565b81015492604083019384526107ff600360028401549360608601948552016123cd565b9360808401948552835115610385576000809492818094525252526040519061082782612391565b60008252527f301ac9502001a31c885b47a8ce84ba7ea74083a3b95675563c660dcebc7d5f5f604051924284523393a4005b50846000528084528160406000205416600b81101561023757600a10610798565b50846000528084528160406000205416600b8110156102375715610791565b34610155576000366003190112610155576004546040516001600160a01b039091168152602090f35b3461015557602036600319011261015557600435600b8110156101555760ff8116600a81116109385733600052600160205260406000209060ff1982541617905561091060405180926122ad565b7fdc983e356096ea4440682aebfc76b2938cbf9cae52431ff53c2b1144a53de7e560203392a2005b604051631230530160e31b8152600490fd5b34610155576000366003190112610155576109636125a0565b600480546001600160a01b031981169091556000906001600160a01b03167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e08280a3005b346101555760a0366003190112610155576004356109c36121ed565b9060443590600382101561015557606435926001600160401b0390608435828111610155576109f6903690600401612231565b90923360005260019060209382855260ff60406000205416600b81101561023757830361021f576001600160a01b03169788156103e9578860005282855260ff60406000205416600b8110156102375783148015610ca3575b8015610c81575b61039757600260ff891611610c6f57603c811115610c5d57610a78904261247e565b9360405192610a868461235a565b80845281840193610a978a86612314565b604081019042825260608101888152610ab136898c61248b565b96608083019788528b600052600286528d6040600020906000528652610aeb604060002093511515849060ff801983541691151516179055565b519260038410156102375760039361ff0084549160081b169061ff0019161783555184830155516002820155019351908151938411610c4757610b3884610b328754612320565b876124d1565b82601f8511600114610bb5575050827f54fd8cf009ebe28d90ffba5f4fe8909afba0d1d3bf3cced9ed67a74a908e92c897969593610ba59593610b9293600092610baa575b50508160011b916000199060031b1c19161790565b90555b6040519384933398429086612548565b0390a4005b015190508c80610b7d565b91601f949391941984168660005283600020936000905b828210610c30575050917f54fd8cf009ebe28d90ffba5f4fe8909afba0d1d3bf3cced9ed67a74a908e92c899989795939185610ba598969410610c17575b505050811b019055610b95565b015160001960f88460031b161c191690558b8080610c0a565b808886978294978701518155019601940190610bcc565b634e487b7160e01b600052604160045260246000fd5b604051630647f4b360e41b8152600490fd5b604051639d7efecf60e01b8152600490fd5b508860005282855260ff60406000205416600b81101561023757600a10610a56565b508860005282855260ff60406000205416600b8110156102375715610a4f565b3461015557608036600319011261015557610cdc6121d7565b602490813590600382101561015557604435926001600160401b039160643583811161015557610d10903690600401612231565b9190933360005260019160209083825260ff60406000205416600b8110156106e8578403610fcb576001600160a01b0316978815610fb4578860005283825260ff60406000205416600b8110156106e85784148015610f94575b8015610f72575b61039757600260ff891611610c6f57603c811115610c5d57610d93904261247e565b9460405193610da18561235a565b80855282850194610db28a87612314565b604081014281526060820190898252610dcc368a8d61248b565b976080840198895233600052600387528d6040600020906000528752610e06604060002094511515859060ff801983541691151516179055565b5160038110156106c1579083929161ff00600395549160081b169061ff0019161783555184830155516002820155019451918251948511610f5e5750610e5084610b328754612320565b82601f8511600114610ecc575050827f2b5d45cf9d9e315dfb33028012f3ff541480a79a0564f871871fe13e4872980d97969593610ebc9593610ea993600092610ec15750508160011b916000199060031b1c19161790565b90555b6040519384933397429086612548565b0390a3005b015190508b80610b7d565b91601f949391941984168660005283600020936000905b828210610f47575050917f2b5d45cf9d9e315dfb33028012f3ff541480a79a0564f871871fe13e4872980d99989795939185610ebc98969410610f2e575b505050811b019055610eac565b015160001960f88460031b161c191690558a8080610f21565b808886978294978701518155019601940190610ee3565b634e487b7160e01b60009081526041600452fd5b508860005283825260ff60406000205416600b8110156106e857600a10610d71565b508860005283825260ff60406000205416600b8110156106e85715610d6a565b604051634726455360e11b81523360048201528690fd5b6040516362e34a2360e01b81523360048201528690fd5b34610155576020366003190112610155576001600160a01b036110036121d7565b166000526001602052602060ff6040600020541661102460405180926122ad565bf35b3461015557602036600319011261015557600061016060405161104881612375565b828152826020820152826040820152826060820152826080820152606060a0820152606060c0820152606060e0820152826101008201528261012082015282610140820152015233600052600160205260ff60406000205416600b811015908161023757801580156113f8575b6106895760043560005260066020526040600020916111836040516110d981612375565b8454815260018501546001600160a01b03908116602083019081526002870154821660408401526003870154909116606083015260048601546080830152946101609060ff90600a9061112e600582016123cd565b60a086015261113f600682016123cd565b60c0860152611150600782016123cd565b60e0860152600881015461010086015260098101546101208601520154818116151561014085015260081c169101612472565b6102375760010361133b5751336001600160a01b039091160361061c575b6004356000526006602052604060002061126360ff600a604051936111c585612375565b8054855260018101546001600160a01b03908116602087015260028201548116604087015260038201541660608601526004810154608086015261120b600582016123cd565b60a086015261121c600682016123cd565b60c086015261122d600782016123cd565b60e0860152600881015461010086015260098101546101208601520154818116151561014085015260081c166101608301612472565b6040518091602082528051602083015260018060a01b03602082015116604083015260018060a01b03604082015116606083015260018060a01b036060820151166080830152608081015160a083015261021b60a082015161016061130b6112d9610180938460c08901526101a088019061226d565b6112f560c087015191601f1992838a83030160e08b015261226d565b9060e0870151908883030161010089015261226d565b936101008101516101208701526101208101516101408701526101408101511515828701520151908401906122ad565b5060043560005260026020526040600020336000526020526040600020604051906113658261235a565b80549160ff83161515815261138460ff602083019460081c1684612314565b600182015460408201526113a6600360028401549360608401948552016123cd565b608082015251159182156113e0575b5081156113d5575b50156111a157604051636b6d2e1160e11b8152600490fd5b9050514211816113bd565b909150516003811015610237576001141590826113b5565b5060009150600a81116110b5565b346101555760c0366003190112610155576044356001600160401b03811161015557611436903690600401612231565b906064356001600160401b03811161015557611456903690600401612231565b906084356001600160401b03811161015557611476903690600401612231565b91909261148161225e565b946024351580156119f6575b80156119ee575b80156119e6575b6119d45733600052600160205260ff60406000205416600b811015908161023757801580156119c6575b61068957600435600052600660205260406000209161158c60ff600a604051956114ee87612375565b8054875260018101546001600160a01b039081166020890152600282015481166040890152600382015416606088015260048101546080880152611534600582016123cd565b60a0880152611545600682016123cd565b60c0880152611556600782016123cd565b60e0880152600881015461010088015260098101546101208801520154818116151561014087015260081c166101608501612472565b610237576001036119095760200151336001600160a01b039091160361061c575b6004356000526006602052604060002060038101336001600160601b0360a01b82541617905560243560048201556001600160401b038811610c4757611603886115fa6005840154612320565b600584016124d1565b600088601f811160011461189c578061163292600091611891575b508160011b916000199060031b1c19161790565b60058201555b6001600160401b038311610c4757611660836116576006840154612320565b600684016124d1565b600083601f8111600114611824578061168e9260009161181957508160011b916000199060031b1c19161790565b60068201555b6001600160401b038511610c4757806116be866116b560078b950154612320565b600784016124d1565b6000601f8711600114611793579261171f61173f9593600a611731946117018b8061174d9e9d9c9a60009161178857508160011b916000199060031b1c19161790565b60078201555b426009820155019060ff801983541691151516179055565b6040519960a08b5260a08b0191612527565b9188830360208a0152612527565b918583036040870152612527565b90426060840152151560808301527fd04f8297cb3c6060a4a042544aa43a2f1cf6541770bde0bf671432ef192de87a339280600435930390a3005b90508d01353861161e565b6007820160005260206000209060005b601f19891681106117fe575061173f9593600a611731948a99979461171f9461174d9d9c601f198116106117e4575b505060018a811b016007820155611707565b8c013560001960038d901b60f8161c191690558e806117d2565b8982013583558a9450600190920191602091820191016117a3565b90508601358b61161e565b50601f19841690600683016000528460206000209260005b81811061187657501061185c575b5050600183811b016006820155611694565b850135600019600386901b60f8161c19169055888061184a565b8884013585556001909401936020938401938893500161183c565b90508401358b61161e565b506005820160005260206000209060005b601f198b1681106118f1575089601f198116106118d7575b5050600188811b016005820155611638565b83013560001960038b901b60f8161c1916905588806118c5565b909160206001819285880135815501930191016118ad565b5060043560005260026020526040600020336000526020526040600020604051906119338261235a565b80549160ff83161515815261195260ff602083019460081c1684612314565b60018201546040820152611974600360028401549360608401948552016123cd565b608082015251159182156119ae575b5081156119a3575b50156115ad57604051636b6d2e1160e11b8152600490fd5b90505142118861198b565b90915051600381101561023757600214159089611983565b5060009150600a81116114c5565b6040516306bea62160e51b8152600490fd5b50831561149b565b508115611494565b50861561148d565b346101555760e036600319011261015557611a176121d7565b6044356001600160401b03811161015557611a36903690600401612231565b916064356001600160401b03811161015557611a56903690600401612231565b93906084356001600160401b03811161015557611a77903690600401612231565b959094611a8261225e565b93600b60c43510156101555733600052600160205260ff6040600020541660018060a01b03871660005260ff60406000205416600b82101591826102375760018114159283612169575b831561215d575b831561214a575b8315612137575b50508115612123575b506106895760243515801561211b575b8015612113575b801561210b575b6119d457600a60ff60c43516116119d45733600052600160205260ff60406000205416600b811015610237576001036121055733955b33600052600160205260ff60406000205416600b811015610237576001146121005750335b6001600160a01b0387811660009081526003602090815260408083209385168352929052819020905190611b968261235a565b80549160ff831615158152611bb560ff602083019460081c1684612314565b60018201546040820152611bd7600360028401549360608401948552016123cd565b608082015251159182156120e8575b5081156120dd575b50610385576005549760001989146120c75760018901600555604051611c1381612375565b8981526001600160a01b03898116602083015283166040820152600060608201526024356080820152611c4736858761248b565b60a0820152611c5736878961248b565b60c0820152611c67368c8461248b565b60e0820152426101008201526000610120820152871515610140820152611c9460c4356101608301612472565b896000526006602052604060002090805182556001820160018060a01b03602083015116906001600160601b0360a01b91828254161790556002830160018060a01b0360408401511682825416179055600383019060018060a01b03606084015116908254161790556080810151600483015560a08101518051906001600160401b038211610c4757611d3782611d2e6005870154612320565b600587016124d1565b602090601f831160011461205557611d67929160009183611fd85750508160011b916000199060031b1c19161790565b60058301555b60c08101518051906001600160401b038211610c4757611d9d82611d946006870154612320565b600687016124d1565b602090601f8311600114611fe357611dcd929160009183611fd85750508160011b916000199060031b1c19161790565b60068301555b60e08101518051906001600160401b038211610c4757611e0382611dfa6007870154612320565b600787016124d1565b602090601f8311600114611f64579180611e38926101609594600092611f595750508160011b916000199060031b1c19161790565b60078401555b61010081015160088401556101208101516009840155611e746101408201511515600a85019060ff801983541691151516179055565b0151600b81101561023757600a9061ff00828401549160081b169061ff0019161791015533600052600760205260406000209081549a680100000000000000008c1015610c475761173f8b987f689eb1cda6deaf3f32cafbffcc7c26358599606354ab581773ca7eccf336c8d198611ef760209f611f2397600182018155612203565b81549060031b908d821b91600019901b1916179055611731604051998a9960c08b5260c08b0191612527565b9542606084015215156080830152611f4060a0830160c4356122ad565b6001600160a01b039081169616940390a4604051908152f35b015190503880610b7d565b906007850160005260206000209160005b601f1985168110611fc057509183916001936101609695601f19811610611fa7575b505050811b016007840155611e3e565b015160001960f88460031b161c191690558f8080611f97565b91926020600181928685015181550194019201611f75565b015190508f80610b7d565b9190600685016000526020600020906000935b601f198416851061203a576001945083601f19811610612021575b505050811b016006830155611dd3565b015160001960f88460031b161c191690558e8080612011565b81810151835560209485019460019093019290910190611ff6565b9190600585016000526020600020906000935b601f19841685106120ac576001945083601f19811610612093575b505050811b016005830155611d6d565b015160001960f88460031b161c191690558e8080612083565b81810151835560209485019460019093019290910190612068565b634e487b7160e01b600052601160045260246000fd5b90505142118a611bee565b9091505160038110156102375760021415908b611be6565b611b63565b85611b3e565b508715611b08565b508215611b01565b508015611afa565b9050600b81101561023757600a1089611aea565b9091925061023757600a10908a80611ae1565b9250600b82101561023757811592611ada565b50801592506000611ad3565b9250600b82101561023757600182141592611acc565b34610155576040366003190112610155576121986121d7565b6001600160a01b0316600090815260076020526040902080546024359190821015610155576020916121c991612203565b90546040519160031b1c8152f35b600435906001600160a01b038216820361015557565b602435906001600160a01b038216820361015557565b805482101561221b5760005260206000200190600090565b634e487b7160e01b600052603260045260246000fd5b9181601f84011215610155578235916001600160401b038311610155576020838186019501011161015557565b60a43590811515820361015557565b919082519283825260005b848110612299575050826000602080949584010152601f8019910116010190565b602081830181015184830182015201612278565b90600b8210156102375752565b9060038210156102375752565b60c0608061231193602084528051151560208501526122ee602082015160408601906122ba565b6040810151606085015260608101518285015201519160a080820152019061226d565b90565b60038210156102375752565b90600182811c92168015612350575b602083101461233a57565b634e487b7160e01b600052602260045260246000fd5b91607f169161232f565b60a081019081106001600160401b03821117610c4757604052565b61018081019081106001600160401b03821117610c4757604052565b602081019081106001600160401b03821117610c4757604052565b90601f801991011681019081106001600160401b03821117610c4757604052565b906040519182600082546123e081612320565b908184526020946001916001811690816000146124505750600114612411575b50505061240f925003836123ac565b565b600090815285812095935091905b81831061243857505061240f9350820101388080612400565b8554888401850152948501948794509183019161241f565b9250505061240f94925060ff191682840152151560051b820101388080612400565b600b8210156102375752565b919082018092116120c757565b9291926001600160401b038211610c4757604051916124b4601f8201601f1916602001846123ac565b829481845281830111610155578281602093846000960137010152565b90601f81116124df57505050565b6000916000526020600020906020601f850160051c8301941061251d575b601f0160051c01915b82811061251257505050565b818155600101612506565b90925082906124fd565b908060209392818452848401376000828201840152601f01601f1916010190565b909260809261255b8361231198966122ba565b602083015260408201528160608201520191612527565b6040519061257f8261235a565b60606080836000815260006020820152600060408201526000838201520152565b6004546001600160a01b031633036125b457565b60405163118cdaa760e01b8152336004820152602490fdfea26469706673582212200c7fe9405695fd062c9ad5bd27cf868ed93e06d3acdb5081c96bf366b1d5443d64736f6c63430008180033",
+  "devdoc": {
+    "details": "Contract for managing private documents metadata and ownership Integrates with AccessControl for permission management",
+    "errors": {
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ],
+      "ReentrancyGuardReentrantCall()": [
+        {
+          "details": "Unauthorized reentrant call."
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "getEntityType(address)": {
+        "details": "Get entity type for an address",
+        "params": {
+          "_entity": "Address to check"
+        },
+        "returns": {
+          "_0": "EntityType of the address"
+        }
+      },
+      "getPermissionDoc(uint256,address)": {
+        "details": "Get permission details for a specific document-entity pair",
+        "params": {
+          "_entity": "Address to check"
+        },
+        "returns": {
+          "_0": "Permission struct with all details"
+        }
+      },
+      "getPermissionEntity(address)": {
+        "details": "Get permission details for a specific patient-entity pair",
+        "params": {
+          "_entity": "Address to check"
+        },
+        "returns": {
+          "_0": "Permission struct with all details"
+        }
+      },
+      "grantAccessDoc(uint256,address,uint8,uint256,string)": {
+        "details": "Grant access to an entity for the patient's document record",
+        "params": {
+          "_accessType": "Type of access to grant",
+          "_entity": "Address of the entity to grant access to",
+          "_expiresAt": "Timestamp when access expires (0 for no expiration)",
+          "_purpose": "Purpose of the access"
+        }
+      },
+      "grantAccessEntity(address,uint8,uint256,string)": {
+        "details": "Grant access to an entity for the patient's records",
+        "params": {
+          "_accessType": "Type of access to grant",
+          "_entity": "Address of the entity to grant access to",
+          "_expiresAt": "Timestamp when access expires (0 for no expiration)",
+          "_purpose": "Purpose of the access"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "registerEntity(uint8)": {
+        "details": "Register an entity with its type",
+        "params": {
+          "_entityType": "Type of entity (AUDITOR, HEALTH, INSURANCE)"
+        }
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "revokeAccessDoc(uint256,address)": {
+        "details": "Revoke access from an document",
+        "params": {
+          "_entity": "Address of the entity to revoke access from"
+        }
+      },
+      "revokeAccessEntity(address)": {
+        "details": "Revoke access from an entity",
+        "params": {
+          "_entity": "Address of the entity to revoke access from"
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "title": "DocsRecords",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "accessCreateDocument(address,bytes32,string,string,string,bool,uint8)": {
+        "notice": "Access Function to filter valid entities and inputs for creating a document"
+      },
+      "accessUpdateDocument(uint256,bytes32,string,string,string,bool)": {
+        "notice": "Access Function to filter valid entities and inputs for updating a document"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 188,
+        "contract": "contracts/DocsRecords.sol:DocsRecords",
+        "label": "_status",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 305,
+        "contract": "contracts/DocsRecords.sol:DocsRecords",
+        "label": "entityTypes",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_enum(EntityType)288)"
+      },
+      {
+        "astId": 312,
+        "contract": "contracts/DocsRecords.sol:DocsRecords",
+        "label": "permissions",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_mapping(t_address,t_struct(Permission)300_storage))"
+      },
+      {
+        "astId": 319,
+        "contract": "contracts/DocsRecords.sol:DocsRecords",
+        "label": "patientPermissions",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_mapping(t_address,t_struct(Permission)300_storage))"
+      },
+      {
+        "astId": 8,
+        "contract": "contracts/DocsRecords.sol:DocsRecords",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_address"
+      },
+      {
+        "astId": 949,
+        "contract": "contracts/DocsRecords.sol:DocsRecords",
+        "label": "s_nextDocId",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 954,
+        "contract": "contracts/DocsRecords.sol:DocsRecords",
+        "label": "s_documents",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_uint256,t_struct(Document)947_storage)"
+      },
+      {
+        "astId": 959,
+        "contract": "contracts/DocsRecords.sol:DocsRecords",
+        "label": "s_patientDocuments",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_address_payable": {
+        "encoding": "inplace",
+        "label": "address payable",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_enum(AccessType)276": {
+        "encoding": "inplace",
+        "label": "enum AccessControl.AccessType",
+        "numberOfBytes": "1"
+      },
+      "t_enum(EntityType)288": {
+        "encoding": "inplace",
+        "label": "enum AccessControl.EntityType",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_mapping(t_address,t_enum(EntityType)288)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => enum AccessControl.EntityType)",
+        "numberOfBytes": "32",
+        "value": "t_enum(EntityType)288"
+      },
+      "t_mapping(t_address,t_mapping(t_address,t_struct(Permission)300_storage))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(address => struct AccessControl.Permission))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_struct(Permission)300_storage)"
+      },
+      "t_mapping(t_address,t_struct(Permission)300_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct AccessControl.Permission)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Permission)300_storage"
+      },
+      "t_mapping(t_uint256,t_mapping(t_address,t_struct(Permission)300_storage))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(address => struct AccessControl.Permission))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_struct(Permission)300_storage)"
+      },
+      "t_mapping(t_uint256,t_struct(Document)947_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct DocsRecords.Document)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Document)947_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Document)947_storage": {
+        "encoding": "inplace",
+        "label": "struct DocsRecords.Document",
+        "members": [
+          {
+            "astId": 923,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "id",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 925,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "owner",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address_payable"
+          },
+          {
+            "astId": 927,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "createdBy",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          },
+          {
+            "astId": 929,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "updatedBy",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address"
+          },
+          {
+            "astId": 931,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "documentHash",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_bytes32"
+          },
+          {
+            "astId": 933,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "ipfsCID",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 935,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "documentType",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 937,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "description",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 939,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "createdAt",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 941,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "updatedAt",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 943,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "isActive",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_bool"
+          },
+          {
+            "astId": 946,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "sectorType",
+            "offset": 1,
+            "slot": "10",
+            "type": "t_enum(EntityType)288"
+          }
+        ],
+        "numberOfBytes": "352"
+      },
+      "t_struct(Permission)300_storage": {
+        "encoding": "inplace",
+        "label": "struct AccessControl.Permission",
+        "members": [
+          {
+            "astId": 290,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "isActive",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 293,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "accessType",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_enum(AccessType)276"
+          },
+          {
+            "astId": 295,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "grantedAt",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 297,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "expiresAt",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 299,
+            "contract": "contracts/DocsRecords.sol:DocsRecords",
+            "label": "purpose",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

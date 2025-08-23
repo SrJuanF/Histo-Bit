@@ -1,0 +1,48 @@
+specVersion: 1.3.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: DocsRecords
+    network: fuji
+    source:
+      address: "0x5eDc321228e8064a678d16df4338d77cc38Dc6e5"
+      abi: DocsRecords
+      startBlock: 45029686
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - AccessGrantedDoc
+        - AccessGrantedEntity
+        - AccessRevokedDoc
+        - AccessRevokedEntity
+        - DocumentAdded
+        - DocumentDeactivated
+        - DocumentUpdated
+        - EntityRegistered
+        - OwnershipTransferred
+      abis:
+        - name: DocsRecords
+          file: ./abis/DocsRecords.json
+      eventHandlers:
+        - event: AccessGrantedDoc(indexed uint256,indexed address,indexed address,uint8,uint256,uint256,string)
+          handler: handleAccessGrantedDoc
+        - event: AccessGrantedEntity(indexed address,indexed address,uint8,uint256,uint256,string)
+          handler: handleAccessGrantedEntity
+        - event: AccessRevokedDoc(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleAccessRevokedDoc
+        - event: AccessRevokedEntity(indexed address,indexed address,uint256)
+          handler: handleAccessRevokedEntity
+        - event: DocumentAdded(indexed uint256,indexed address,indexed address,string,string,string,uint256,bool,uint8)
+          handler: handleDocumentAdded
+        - event: DocumentDeactivated(indexed uint256,indexed address,uint256)
+          handler: handleDocumentDeactivated
+        - event: DocumentUpdated(indexed uint256,indexed address,string,string,string,uint256,bool)
+          handler: handleDocumentUpdated
+        - event: EntityRegistered(indexed address,uint8)
+          handler: handleEntityRegistered
+      file: ./src/docs-records.ts
