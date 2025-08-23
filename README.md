@@ -47,6 +47,7 @@ flowchart TD
     I -->|Validates Transactions| BC
     A -->|Monitors & Audits| BC
     P -->|Encrypted Records| BC
+```
 
 ---
 
