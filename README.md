@@ -38,6 +38,18 @@ Patients often cannot decide **who** accesses their records, **when**, or **for 
 
 ---
 
+```mermaid
+flowchart TD
+    P[👤 Patient] -->|Grants/Revoke Access| D[👨‍⚕️ Doctor]
+    P -->|Shares Data| I[🏦 Insurer]
+    P -->|Permission Logs| A[🔍 Auditor]
+    D -->|Validates Records| BC[(⛓️ Blockchain)]
+    I -->|Validates Transactions| BC
+    A -->|Monitors & Audits| BC
+    P -->|Encrypted Records| BC
+
+---
+
 ## 🔐 Security & Privacy
 
 - **Encryption**: All sensitive data is encrypted before storage.  
