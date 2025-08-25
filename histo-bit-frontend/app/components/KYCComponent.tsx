@@ -47,8 +47,8 @@ export default function KYCComponent() {
         userDefinedData: "Bonjour Cannes!",
         disclosures: {
           minimumAge: 18,
-          nationality: true,
-          gender: true,
+          nationality: false,
+          gender: false,
         }
       }).build();
 
