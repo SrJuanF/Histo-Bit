@@ -29,13 +29,13 @@ module.exports.tags = ["all", "DocsRecords"]
 
 
 /*
-git add .
-rm -rf Graphs/docs-records/.git
-git rm --cached -rf Graphs/docs-records
-rm -rf histo-bit-frontend/.git
-git rm --cached -rf histo-bit-frontend
-git add Graphs/docs-records
-git add histo-bit-frontend
+git add . && \
+rm -rf Graphs/docs-records/.git && \
+git rm --cached -rf Graphs/docs-records && \
+rm -rf histo-bit-frontend/.git && \
+git rm --cached -rf histo-bit-frontend && \
+git add Graphs/docs-records && \
+git add histo-bit-frontend && \
 git commit -m "First Commit"
 git push -u origin main// origin main
 
